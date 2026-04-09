@@ -34,6 +34,108 @@ function _normalize(s) {
   return (s ?? "").toString().trim().replace(/\r\n/g, "\n");
 }
 
+// Custom styled dropdown – replaces native <select> so the OS doesn't override theme.
+// Returns { el: wrapperElement, getValue: () => string }
+function _makeCustomSelect(options, placeholder, ariaLabel) {
+  let selectedValue = "";
+  // Track all open dropdowns so we can close others when one opens
+  if (!window.__qrDropdowns) window.__qrDropdowns = new Set();
+
+  const wrapper = document.createElement("div");
+  wrapper.style.cssText = "position:relative; flex:1;";
+
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "btn btnGhost";
+  btn.style.cssText = "width:100%; display:flex; justify-content:space-between; align-items:center; gap:8px; font-size:14px; direction:rtl; text-align:right; padding:10px 14px;";
+  btn.setAttribute("aria-label", ariaLabel);
+  btn.setAttribute("aria-haspopup", "listbox");
+  btn.setAttribute("aria-expanded", "false");
+
+  const btnText = document.createElement("span");
+  btnText.textContent = placeholder;
+  btnText.style.color = "rgba(234,242,255,.38)";
+
+  const arrow = document.createElement("span");
+  arrow.textContent = "▾";
+  arrow.style.cssText = "opacity:.55; font-size:11px; flex-shrink:0; transition:transform .15s;";
+
+  btn.appendChild(btnText);
+  btn.appendChild(arrow);
+
+  const dropdown = document.createElement("div");
+  dropdown.style.cssText = [
+    "position:absolute",
+    "top:calc(100% + 6px)",
+    "right:0",
+    "min-width:100%",
+    "background:linear-gradient(180deg,rgba(11,16,38,.98),rgba(7,10,26,.99))",
+    "border:1px solid rgba(255,255,255,.14)",
+    "border-radius:16px",
+    "box-shadow:0 28px 72px rgba(0,0,0,.70),inset 0 1px 0 rgba(255,255,255,.07)",
+    "backdrop-filter:blur(18px)",
+    "z-index:300",
+    "overflow:hidden",
+    "display:none",
+    "padding:4px 0",
+  ].join(";");
+  dropdown.setAttribute("role", "listbox");
+  window.__qrDropdowns.add(dropdown);
+
+  function close() {
+    dropdown.style.display = "none";
+    btn.setAttribute("aria-expanded", "false");
+    arrow.style.transform = "";
+  }
+
+  function open() {
+    // Close every other dropdown first
+    window.__qrDropdowns.forEach(d => { if (d !== dropdown) d.style.display = "none"; });
+    dropdown.style.display = "block";
+    btn.setAttribute("aria-expanded", "true");
+    arrow.style.transform = "rotate(180deg)";
+  }
+
+  options.forEach(opt => {
+    const item = document.createElement("div");
+    item.setAttribute("role", "option");
+    item.textContent = opt;
+    item.style.cssText = "padding:10px 16px; cursor:pointer; font-size:14px; color:rgba(234,242,255,.85); direction:rtl; text-align:right; transition:background .1s;";
+
+    item.addEventListener("mouseenter", () => {
+      item.style.background = "rgba(96,165,250,.18)";
+    });
+    item.addEventListener("mouseleave", () => {
+      item.style.background = selectedValue === opt ? "rgba(96,165,250,.10)" : "";
+    });
+    item.addEventListener("mousedown", e => e.preventDefault()); // prevent blur before click
+    item.addEventListener("click", () => {
+      // Clear previous selection highlight
+      dropdown.querySelectorAll("[role='option']").forEach(o => o.style.background = "");
+      selectedValue = opt;
+      item.style.background = "rgba(96,165,250,.10)";
+      btnText.textContent = opt;
+      btnText.style.color = "var(--text)";
+      close();
+    });
+    dropdown.appendChild(item);
+  });
+
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dropdown.style.display === "none" ? open() : close();
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!wrapper.contains(e.target)) close();
+  });
+
+  wrapper.appendChild(btn);
+  wrapper.appendChild(dropdown);
+
+  return { el: wrapper, getValue: () => selectedValue };
+}
+
 /* ---- public: feedback helper ---- */
 
 /**
@@ -479,7 +581,7 @@ function renderMatch(fb, root) {
   table.style.display = "grid";
   table.style.gap = "10px";
 
-  const selects = {};
+  const getters = {};
   const shuffledRights = [...fb.rights].sort(() => Math.random() - 0.5);
 
   fb.lefts.forEach(left => {
@@ -492,36 +594,15 @@ function renderMatch(fb, root) {
     leftEl.style.flex = "1";
     leftEl.textContent = left;
 
-    const select = document.createElement("select");
-    select.style.cssText = [
-      "background:rgba(255,255,255,0.08)",
-      "border:1px solid rgba(255,255,255,0.15)",
-      "border-radius:12px",
-      "color:var(--text)",
-      "padding:8px 10px",
-      "cursor:pointer",
-      "flex:1",
-      "font-size:14px",
-    ].join(";");
-    select.setAttribute("aria-label", `התאמה עבור ${left}`);
+    const { el, getValue } = _makeCustomSelect(
+      shuffledRights,
+      "בחר/י...",
+      `התאמה עבור ${left}`
+    );
 
-    const placeholder = document.createElement("option");
-    placeholder.value = "";
-    placeholder.textContent = "בחר/י...";
-    placeholder.disabled = true;
-    placeholder.selected = true;
-    select.appendChild(placeholder);
-
-    shuffledRights.forEach(opt => {
-      const o = document.createElement("option");
-      o.value = opt;
-      o.textContent = opt;
-      select.appendChild(o);
-    });
-
-    selects[left] = select;
+    getters[left] = getValue;
     row.appendChild(leftEl);
-    row.appendChild(select);
+    row.appendChild(el);
     table.appendChild(row);
   });
 
@@ -534,7 +615,7 @@ function renderMatch(fb, root) {
   checkBtn.className = "btn";
   checkBtn.textContent = "בדוק ✅";
   checkBtn.onclick = () => {
-    const ok = fb.lefts.every(left => selects[left]?.value === fb.correctPairs[left]);
+    const ok = fb.lefts.every(left => getters[left]() === fb.correctPairs[left]);
     showFeedback(root, ok, fb.explainCorrect, fb.explainWrong);
   };
 
