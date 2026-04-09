@@ -892,6 +892,218 @@ print("סה\"כ לתשלום:", int(total))
     }
   },
 
+  {
+    id: "grade_average",
+    group: "projects_y1",
+    topic: "חישובים",
+    title: "מחשבון ציונים",
+    subtitle: "ממוצע + תנאי עמידה",
+    explain: "מחשבון ציונים קולט ציונים ממספר מקצועות ומחשב ממוצע. אם הממוצע ≥ 60 — עבר, אחרת — נכשל. שימו לב לסדר הפעולות בנוסחת הממוצע!",
+    task: "קלטו 3 ציונים (int), חשבו ממוצע, והדפיסו 'עבר' אם הממוצע ≥ 60, אחרת 'נכשל'.",
+    hint: "avg = (g1 + g2 + g3) / 3\nאחר כך if avg >= 60:",
+    starter: `g1 = int(input("ציון 1: "))
+g2 = int(input("ציון 2: "))
+g3 = int(input("ציון 3: "))
+# חשבו ממוצע ובדקו תנאי`,
+    solution: `g1 = int(input("ציון 1: "))
+g2 = int(input("ציון 2: "))
+g3 = int(input("ציון 3: "))
+avg = (g1 + g2 + g3) / 3
+if avg >= 60:
+    print("עבר")
+else:
+    print("נכשל")`,
+    expectedOutput: null,
+    fallback: {
+      type: "steps",
+      steps: [
+        {
+          title: "שלב 1: סדר פעולות",
+          type: "predictOutput",
+          question: "מה יודפס? שימו לב לסדר הפעולות!",
+          code: "print(80 + 70 + 90 / 3)",
+          options: ["80.0", "180.0", "80", "240.0"],
+          correctIndex: 1,
+          explainCorrect: "קודם חלוקה: 90÷3=30. אחר כך חיבור: 80+70+30=180.0",
+          explainWrong: "סדר פעולות: קודם חלוקה (90/3=30), ואז חיבור (80+70+30=180.0)"
+        },
+        {
+          title: "שלב 2: נוסחת הממוצע",
+          type: "dragIntoCode",
+          question: "השלימו את חישוב הממוצע הנכון:",
+          promptParts: ["avg = (g1 + g2 + g3) / ", ""],
+          blanks: [{ correct: "3" }],
+          bank: ["3", "2", "100", "g1", "sum"],
+          explainCorrect: "מחלקים ב-3 כי יש 3 ציונים. הסוגריים חשובים — מבטיחים חיבור לפני חלוקה!",
+          explainWrong: "מחלקים במספר הציונים — יש 3, לכן ÷3"
+        },
+        {
+          title: "שלב 3: הזחה נכונה",
+          type: "indent",
+          question: "קבעו הזחה נכונה לכל שורה:",
+          lines: [
+            "avg = (g1 + g2 + g3) / 3",
+            "if avg >= 60:",
+            "print('עבר')",
+            "else:",
+            "print('נכשל')"
+          ],
+          solution: [0, 0, 1, 0, 1],
+          maxIndent: 2,
+          explainCorrect: "if ו-else בהזחה 0. הקוד שבתוכם — הזחה 1.",
+          explainWrong: "רק השורות בתוך if / else מקבלות הזחה פנימה"
+        },
+        {
+          title: "שלב 4: נסו לחשב",
+          type: "quiz",
+          question: "סטודנט קיבל 50, 70, 65 — האם עבר?",
+          options: ["כן — הממוצע ≈ 61.7", "לא — הממוצע ≈ 58.3", "כן — הממוצע 65", "לא — הממוצע 60"],
+          correctIndex: 0,
+          explainCorrect: "(50+70+65)÷3 = 185÷3 ≈ 61.7 — עבר! (≥60)"
+        }
+      ]
+    }
+  },
+
+  {
+    id: "temp_converter",
+    group: "projects_y1",
+    topic: "נוסחאות",
+    title: "ממיר טמפרטורה",
+    subtitle: "צלזיוס → פרנהייט",
+    explain: "הנוסחה להמרה מצלזיוס לפרנהייט: F = C × 9/5 + 32. נקודת קפיאה: 0°C = 32°F. נקודת רתיחה: 100°C = 212°F.",
+    task: "קלטו טמפרטורה בצלזיוס (float) והדפיסו את הערך המתאים בפרנהייט.",
+    hint: "f = c * 9 / 5 + 32",
+    starter: `c = float(input("טמפרטורה בצלזיוס: "))
+# המירו והדפיסו בפרנהייט`,
+    solution: `c = float(input("טמפרטורה בצלזיוס: "))
+f = c * 9 / 5 + 32
+print(f)`,
+    expectedOutput: null,
+    fallback: {
+      type: "steps",
+      steps: [
+        {
+          title: "שלב 1: נקודות ייחוס",
+          type: "match",
+          question: "חברו כל טמפרטורה לערך המקביל שלה:",
+          lefts:  ["0°C", "100°C", "37°C"],
+          rights: ["32°F", "212°F", "98.6°F", "0°F", "310°F"],
+          correctPairs: {
+            "0°C":   "32°F",
+            "100°C": "212°F",
+            "37°C":  "98.6°F"
+          },
+          explainCorrect: "קפיאה=32°F, רתיחה=212°F, חום גוף=98.6°F — נקודות ייחוס קלאסיות!",
+          explainWrong: "0°C=32°F (קפיאה), 100°C=212°F (רתיחה), 37°C=98.6°F (גוף)"
+        },
+        {
+          title: "שלב 2: בניית הנוסחה",
+          type: "dragIntoCode",
+          question: "השלימו את נוסחת ההמרה:",
+          promptParts: ["f = c * 9 / ", " + "],
+          blanks: [{ correct: "5" }, { correct: "32" }],
+          bank: ["5", "32", "9", "100", "2", "0"],
+          explainCorrect: "F = C × 9/5 + 32. חלקי הנוסחה: כפל ב-9, חלוקה ב-5, ועוד 32.",
+          explainWrong: "הנוסחה: F = C × 9 ÷ 5 + 32 — הבלנקים הם 5 ו-32"
+        },
+        {
+          title: "שלב 3: חזאי קוד",
+          type: "predictOutput",
+          question: "מה יודפס כשמריצים עם c = 0 ?",
+          code: "c = 0\nf = c * 9 / 5 + 32\nprint(f)",
+          options: ["0.0", "9.0", "32.0", "37.0"],
+          correctIndex: 2,
+          explainCorrect: "0 × 9/5 = 0, ואז 0 + 32 = 32.0 — נקודת הקפאה!",
+          explainWrong: "0 כפול כל מספר = 0. אחר כך 0 + 32 = 32"
+        },
+        {
+          title: "שלב 4: מצאו את הבאג",
+          type: "debug",
+          question: "הנוסחה שגויה — תקנו אותה:",
+          starterCode: "c = float(input('טמפרטורה בצלזיוס: '))\nf = c + 9 / 5 * 32\nprint(f)",
+          solution:    "c = float(input('טמפרטורה בצלזיוס: '))\nf = c * 9 / 5 + 32\nprint(f)",
+          explainCorrect: "c + 9 צריך להיות c * 9, וסדר הפעולות בנוסחה השתנה",
+          explainWrong: "שימו לב: צריך c × 9, לא c + 9. גם סדר חלוקה/חיבור חשוב"
+        }
+      ]
+    }
+  },
+
+  {
+    id: "discount_calculator",
+    group: "projects_y1",
+    topic: "אחוזים",
+    title: "מחשבון הנחה",
+    subtitle: "חישוב מחיר אחרי הנחה",
+    explain: "כשיש הנחה מחשבים: כמה חוסכים = מחיר × אחוז ÷ 100. מחיר סופי = מחיר מקורי − חיסכון. פשוט ומועיל!",
+    task: "קלטו מחיר מקורי ואחוז הנחה (float), חשבו את הסכום שחוסכים ואת המחיר הסופי, והדפיסו שניהם.",
+    hint: "saved = price * discount / 100\nfinal = price - saved",
+    starter: `price = float(input("מחיר מקורי: "))
+discount = float(input("כמה אחוז הנחה? "))
+# חשבו saved ו-final והדפיסו`,
+    solution: `price = float(input("מחיר מקורי: "))
+discount = float(input("כמה אחוז הנחה? "))
+saved = price * discount / 100
+final = price - saved
+print("חסכת:", saved)
+print("תשלם:", final)`,
+    expectedOutput: null,
+    fallback: {
+      type: "steps",
+      steps: [
+        {
+          title: "שלב 1: חישוב אחוזים",
+          type: "quiz",
+          question: "כמה שווה 20% מ-300 ש\"ח?",
+          options: ["20 ש\"ח", "30 ש\"ח", "60 ש\"ח", "200 ש\"ח"],
+          correctIndex: 2,
+          explainCorrect: "300 × 20 ÷ 100 = 60 ש\"ח — זה הסכום שחוסכים!",
+          explainWrong: "אחוז = כפל ב-אחוז וחלוקה ב-100: 300 × 20 / 100 = 60"
+        },
+        {
+          title: "שלב 2: בניית החישוב",
+          type: "dragIntoCode",
+          question: "השלימו את חישוב החיסכון:",
+          promptParts: ["saved = price * discount / ", ""],
+          blanks: [{ correct: "100" }],
+          bank: ["100", "10", "discount", "price", "2"],
+          explainCorrect: "מחלקים ב-100 כדי להפוך אחוז (למשל 20) לשבר עשרוני (0.2)",
+          explainWrong: "אחוז ÷ 100. לכן: price × discount / 100"
+        },
+        {
+          title: "שלב 3: סדר הקוד",
+          type: "order",
+          prompt: "סדרו את שורות הקוד בסדר הנכון:",
+          pieces: [
+            "price = float(input('מחיר: '))",
+            "saved = price * discount / 100",
+            "discount = float(input('הנחה %: '))",
+            "print('תשלם:', price - saved)"
+          ],
+          correct: [
+            "price = float(input('מחיר: '))",
+            "discount = float(input('הנחה %: '))",
+            "saved = price * discount / 100",
+            "print('תשלם:', price - saved)"
+          ],
+          explainCorrect: "קודם קולטים נתונים, אחר כך מחשבים, ולבסוף מדפיסים",
+          explainWrong: "אי אפשר לחשב לפני שקלטנו את המידע מהמשתמש"
+        },
+        {
+          title: "שלב 4: חזאי קוד",
+          type: "predictOutput",
+          question: "מחיר=200, הנחה=25% — מה יודפס?",
+          code: "price = 200\ndiscount = 25\nsaved = price * discount / 100\nprint(saved)",
+          options: ["25.0", "50.0", "75.0", "175.0"],
+          correctIndex: 1,
+          explainCorrect: "200 × 25 ÷ 100 = 50.0 ש\"ח חיסכון",
+          explainWrong: "200 × 25 = 5000, ÷100 = 50.0"
+        }
+      ]
+    }
+  },
+
   /* ======================
      PROJECTS – YEAR 2
      (שנה ב׳)
