@@ -34,11 +34,10 @@ function _normalize(s) {
   return (s ?? "").toString().trim().replace(/\r\n/g, "\n");
 }
 
-// Custom styled dropdown – replaces native <select> so the OS doesn't override theme.
+// Custom dropdown – replaces native <select> so the OS doesn't override the dark theme.
 // Returns { el: wrapperElement, getValue: () => string }
 function _makeCustomSelect(options, placeholder, ariaLabel) {
   let selectedValue = "";
-  // Track all open dropdowns so we can close others when one opens
   if (!window.__qrDropdowns) window.__qrDropdowns = new Set();
 
   const wrapper = document.createElement("div");
@@ -87,9 +86,7 @@ function _makeCustomSelect(options, placeholder, ariaLabel) {
     btn.setAttribute("aria-expanded", "false");
     arrow.style.transform = "";
   }
-
   function open() {
-    // Close every other dropdown first
     window.__qrDropdowns.forEach(d => { if (d !== dropdown) d.style.display = "none"; });
     dropdown.style.display = "block";
     btn.setAttribute("aria-expanded", "true");
@@ -101,16 +98,10 @@ function _makeCustomSelect(options, placeholder, ariaLabel) {
     item.setAttribute("role", "option");
     item.textContent = opt;
     item.style.cssText = "padding:10px 16px; cursor:pointer; font-size:14px; color:rgba(234,242,255,.85); direction:rtl; text-align:right; transition:background .1s;";
-
-    item.addEventListener("mouseenter", () => {
-      item.style.background = "rgba(96,165,250,.18)";
-    });
-    item.addEventListener("mouseleave", () => {
-      item.style.background = selectedValue === opt ? "rgba(96,165,250,.10)" : "";
-    });
-    item.addEventListener("mousedown", e => e.preventDefault()); // prevent blur before click
+    item.addEventListener("mouseenter", () => { item.style.background = "rgba(96,165,250,.18)"; });
+    item.addEventListener("mouseleave", () => { item.style.background = selectedValue === opt ? "rgba(96,165,250,.10)" : ""; });
+    item.addEventListener("mousedown", e => e.preventDefault());
     item.addEventListener("click", () => {
-      // Clear previous selection highlight
       dropdown.querySelectorAll("[role='option']").forEach(o => o.style.background = "");
       selectedValue = opt;
       item.style.background = "rgba(96,165,250,.10)";
@@ -125,7 +116,6 @@ function _makeCustomSelect(options, placeholder, ariaLabel) {
     e.stopPropagation();
     dropdown.style.display === "none" ? open() : close();
   });
-
   document.addEventListener("click", (e) => {
     if (!wrapper.contains(e.target)) close();
   });
