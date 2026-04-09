@@ -802,27 +802,60 @@ print(student["age"])`,
     id: "simple_calculator_sum",
     group: "projects_y1",
     topic: "מחשבון",
-    title: "מחשבון חיבור",
-    subtitle: "float()",
-    explain: "מחשבון קולט שני מספרים ומחשב תוצאה. כדי לעבוד עם מספרים עשרוניים משתמשים ב־float().",
-    task: "קלטו שני מספרים מהמשתמש, חברו ביניהם והדפיסו את התוצאה.",
+    title: "🧮 מחשבון הכיתה",
+    subtitle: "float() + חיבור",
+    explain: "המורה מרים מתכננת מסיבת כיתה וצריכה לחשב כמויות של מצרכים — 3.5 ק\"ג פיצוחים + 1.5 ק\"ג ממתקים. היא ביקשה מכם תוכנית שתקלוט שני מספרים ותחבר אותם. כדי לעבוד עם מספרים עשרוניים, משתמשים ב־float(input()).",
+    task: "קלטו שני מספרים עשרוניים מהמשתמש (float), חברו ביניהם, והדפיסו את התוצאה.",
     hint: "השתמשו ב־float(input()) לשני המספרים ואז חברו ביניהם",
-    starter: `
-a = float(input("הכנס מספר ראשון: "))
+    starter: `a = float(input("הכנס מספר ראשון: "))
 b = float(input("הכנס מספר שני: "))
 `,
-    solution: `
-a = float(input("הכנס מספר ראשון: "))
+    solution: `a = float(input("הכנס מספר ראשון: "))
 b = float(input("הכנס מספר שני: "))
 print(a + b)
 `,
     expectedOutput: null,
     fallback: {
-      type: "quiz",
-      question: "באיזו פקודה משתמשים כדי לקלוט מספר עשרוני מהמשתמש?",
-      options: ["int(input())", "float(input())", "str(input())", "print()"],
-      correctIndex: 1,
-      explainCorrect: "float(input()) מאפשר לקלוט מספר עשרוני ולחשב איתו."
+      type: "steps",
+      steps: [
+        {
+          title: "שלב 1: int או float?",
+          type: "quiz",
+          question: "המורה רוצה לקלוט 3.5 ק\"ג — איזה סוג נשתמש?",
+          options: ["int(input())", "float(input())", "str(input())", "bool(input())"],
+          correctIndex: 1,
+          explainCorrect: "float() מחזיר מספר עשרוני כמו 3.5. int() רק מספרים שלמים!",
+          explainWrong: "int() לא יכול לשמור 3.5 — צריך float()"
+        },
+        {
+          title: "שלב 2: כתיבת הקלט",
+          type: "fill",
+          promptParts: ["a = ", "(input('מספר ראשון: '))"],
+          blanks: [{ correct: "float" }],
+          bank: ["float", "int", "str", "list", "print"],
+          explainCorrect: "float(input()) קולט טקסט מהמשתמש והופך אותו למספר עשרוני.",
+          explainWrong: "צריך להמיר את הקלט למספר עשרוני — float"
+        },
+        {
+          title: "שלב 3: חזאי קוד",
+          type: "predictOutput",
+          question: "מה יודפס?",
+          code: "a = 3.5\nb = 1.5\nprint(a + b)",
+          options: ["3.51.5", "5", "5.0", "4.0"],
+          correctIndex: 2,
+          explainCorrect: "3.5 + 1.5 = 5.0 — כשמחברים float מקבלים float, גם אם התוצאה עגולה.",
+          explainWrong: "float + float = float. 3.5 + 1.5 = 5.0"
+        },
+        {
+          title: "שלב 4: מצאו את הבאג",
+          type: "debug",
+          question: "המורה רצתה חיבור אבל הקוד עושה משהו אחר — תקנו!",
+          starterCode: "a = float(input('מספר ראשון: '))\nb = float(input('מספר שני: '))\nprint(a - b)",
+          solution:    "a = float(input('מספר ראשון: '))\nb = float(input('מספר שני: '))\nprint(a + b)",
+          explainCorrect: "שינינו - ל-+ — המורה רצתה חיבור, לא חיסור!",
+          explainWrong: "שימו לב לסימן הפעולה: - הוא חיסור, + הוא חיבור"
+        }
+      ]
     }
   },
 
@@ -830,32 +863,75 @@ print(a + b)
     id: "lists_basics_fruits",
     group: "projects_y1",
     topic: "רשימות",
-    title: "רשימות - הבסיס",
+    title: "🍽️ תפריט המסעדה",
     subtitle: "list + index",
-    explain: "רשימה (list) היא אוסף של פריטים בתוך סוגריים מרובעים []. לכל פריט יש מיקום (אינדקס): הראשון הוא 0, השני 1 וכן הלאה.",
-    task: "צרו רשימה של 3 פירות, הדפיסו את כל הרשימה, ואז הדפיסו רק את הפריט הראשון ואת הפריט האחרון.",
-    hint: "fruits[0] זה הראשון, ו־fruits[-1] זה האחרון.",
-    starter: `
-fruits = ["תפוח", "בננה", "ענבים"]
+    explain: "פתחתם מסעדה קטנה בשכונה — ועכשיו צריך תפריט דיגיטלי! בפייתון רשימה (list) מאפשרת לשמור כמה פריטים ביחד בין סוגריים מרובעים []. לכל פריט יש מספר מיקום (index) — הראשון הוא 0, השני 1 וכן הלאה.",
+    task: "צרו רשימה של 3 מנות, הדפיסו את כל הרשימה, ואז הדפיסו רק את המנה הראשונה ואת המנה האחרונה.",
+    hint: "menu[0] זה הראשון, ו־menu[-1] זה האחרון.",
+    starter: `menu = ["פיצה", "בורגר", "סלט"]
 
 # הדפיסו את כל הרשימה
-# הדפיסו את הפריט הראשון
-# הדפיסו את הפריט האחרון
+# הדפיסו את המנה הראשונה
+# הדפיסו את המנה האחרונה
 `,
-    solution: `
-fruits = ["תפוח", "בננה", "ענבים"]
+    solution: `menu = ["פיצה", "בורגר", "סלט"]
 
-print(fruits)
-print("ראשון:", fruits[0])
-print("אחרון:", fruits[-1])
+print(menu)
+print("ראשון:", menu[0])
+print("אחרון:", menu[-1])
 `,
     expectedOutput: null,
     fallback: {
-      type: "quiz",
-      question: "מה מחזיר fruits[0] אם fruits = ['תפוח','בננה','ענבים'] ?",
-      options: ["'תפוח'", "'בננה'", "'ענבים'", "כל הרשימה"],
-      correctIndex: 0,
-      explainCorrect: "האינדקס 0 הוא הפריט הראשון ברשימה."
+      type: "steps",
+      steps: [
+        {
+          title: "שלב 1: מה האינדקס?",
+          type: "quiz",
+          question: "בתפריט menu = ['פיצה','בורגר','סלט'] — מה הערך של menu[1]?",
+          options: ["'פיצה'", "'בורגר'", "'סלט'", "1"],
+          correctIndex: 1,
+          explainCorrect: "ספירה מאפס: menu[0]='פיצה', menu[1]='בורגר', menu[2]='סלט'.",
+          explainWrong: "index מתחיל מ-0: פיצה=0, בורגר=1, סלט=2"
+        },
+        {
+          title: "שלב 2: חזאי קוד",
+          type: "predictOutput",
+          question: "מה יודפס?",
+          code: "menu = ['פיצה', 'בורגר', 'סלט']\nprint(menu[2])",
+          options: ["פיצה", "בורגר", "סלט", "None"],
+          correctIndex: 2,
+          explainCorrect: "menu[2] הוא הפריט השלישי (index=2) — 'סלט'.",
+          explainWrong: "index 2 = הפריט השלישי ברשימה"
+        },
+        {
+          title: "שלב 3: אינדקס אחרון",
+          type: "fill",
+          promptParts: ["print(menu[", "])  # מדפיס את המנה האחרונה"],
+          blanks: [{ correct: "-1" }],
+          bank: ["-1", "0", "3", "last", "-0"],
+          explainCorrect: "ב-Python האינדקס -1 מחזיר תמיד את הפריט האחרון!",
+          explainWrong: "-1 הוא קיצור דרך לפריט האחרון ברשימה"
+        },
+        {
+          title: "שלב 4: סדר הקוד",
+          type: "order",
+          prompt: "סדרו את שורות הקוד של תפריט המסעדה:",
+          pieces: [
+            "print('אחרון:', menu[-1])",
+            "menu = ['פיצה', 'בורגר', 'סלט']",
+            "print(menu)",
+            "print('ראשון:', menu[0])"
+          ],
+          correct: [
+            "menu = ['פיצה', 'בורגר', 'סלט']",
+            "print(menu)",
+            "print('ראשון:', menu[0])",
+            "print('אחרון:', menu[-1])"
+          ],
+          explainCorrect: "קודם מגדירים את הרשימה, ואז יכולים להשתמש בה!",
+          explainWrong: "חייבים להגדיר את menu לפני שמשתמשים בה"
+        }
+      ]
     }
   },
 
@@ -863,32 +939,74 @@ print("אחרון:", fruits[-1])
     id: "tip_calculator",
     group: "projects_y1",
     topic: "מחשבון",
-    title: "מחשבון טיפ",
+    title: "🍕 מחשבון טיפ",
     subtitle: "float() + חישוב אחוזים",
-    explain: "אפשר לחשב אחוזים בעזרת כפל וחילוק: אם החשבון יצא 100 ש״ח ורוצים טיפ של 10%, מחשבים 100 × 10 ÷ 100 – והתוצאה היא 10.",
-    task: "קלטו מהמשתמש את סכום החשבון ואת אחוז הטיפ, חשבו כמה טיפ יצא, ואז הדפיסו את הסכום הכולל לתשלום.",
+    explain: "יצאתם לפיצה עם החברים וחשבון יצא 120 ש\"ח — רוצים להשאיר 15% טיפ למלצר הנחמד? בפייתון אפשר לחשב אחוזים בקלות: tip = bill × percent ÷ 100.",
+    task: "קלטו מהמשתמש את סכום החשבון ואת אחוז הטיפ, חשבו כמה טיפ יצא, ואז הדפיסו את סכום הטיפ ואת הסכום הכולל לתשלום.",
     hint: "tip = bill * percent / 100 ואז total = bill + tip",
-    starter: `
-bill = float(input("כמה יצא החשבון? "))
+    starter: `bill = float(input("כמה יצא החשבון? "))
 percent = float(input("כמה אחוז טיפ? "))
 `,
-    solution: `
-bill = float(input("כמה יצא החשבון? "))
+    solution: `bill = float(input("כמה יצא החשבון? "))
 percent = float(input("כמה אחוז טיפ? "))
 
 tip = bill * percent / 100
 total = bill + tip
 
-print("הטיפ הוא:", int(tip))
-print("סה\"כ לתשלום:", int(total))
-`,
+print("הטיפ הוא:", tip)
+print("סה\"כ לתשלום:", total)`,
     expectedOutput: null,
     fallback: {
-      type: "quiz",
-      question: "איך מחשבים 15% מתוך סכום bill?",
-      options: ["bill + 15", "bill * 15", "bill * 15 / 100", "bill / 15"],
-      correctIndex: 2,
-      explainCorrect: "אחוז מחשבים על ידי כפל וחילוק ב־100: bill * 15 / 100."
+      type: "steps",
+      steps: [
+        {
+          title: "שלב 1: חישוב אחוזים",
+          type: "quiz",
+          question: "החשבון יצא 200 ש\"ח ורוצים 10% טיפ — כמה זה?",
+          options: ["10 ש\"ח", "20 ש\"ח", "200 ש\"ח", "100 ש\"ח"],
+          correctIndex: 1,
+          explainCorrect: "200 × 10 ÷ 100 = 20 ש\"ח. זה בדיוק הנוסחה שנשתמש בה!",
+          explainWrong: "אחוז = מחיר × אחוז ÷ 100: 200 × 10 / 100 = 20"
+        },
+        {
+          title: "שלב 2: נוסחת הטיפ",
+          type: "fill",
+          promptParts: ["tip = bill * percent / ", ""],
+          blanks: [{ correct: "100" }],
+          bank: ["100", "10", "percent", "bill", "2"],
+          explainCorrect: "מחלקים ב-100 כדי להמיר אחוז לשבר: 15% = 15/100 = 0.15.",
+          explainWrong: "תמיד מחלקים ב-100 כשמחשבים אחוז"
+        },
+        {
+          title: "שלב 3: חזאי קוד",
+          type: "predictOutput",
+          question: "חשבון=200, טיפ=15% — מה יודפס?",
+          code: "bill = 200\npercent = 15\ntip = bill * percent / 100\nprint(tip)",
+          options: ["15.0", "20.0", "30.0", "200.0"],
+          correctIndex: 2,
+          explainCorrect: "200 × 15 ÷ 100 = 30.0 ש\"ח טיפ — נדיב!",
+          explainWrong: "200 × 15 = 3000, ÷ 100 = 30.0"
+        },
+        {
+          title: "שלב 4: סדר הקוד",
+          type: "order",
+          prompt: "סדרו את שורות התוכנית בסדר הנכון:",
+          pieces: [
+            "print('סה\"כ:', bill + tip)",
+            "bill = float(input('כמה יצא החשבון? '))",
+            "tip = bill * percent / 100",
+            "percent = float(input('כמה אחוז טיפ? '))"
+          ],
+          correct: [
+            "bill = float(input('כמה יצא החשבון? '))",
+            "percent = float(input('כמה אחוז טיפ? '))",
+            "tip = bill * percent / 100",
+            "print('סה\"כ:', bill + tip)"
+          ],
+          explainCorrect: "קודם קולטים חשבון ואחוז, אחר כך מחשבים טיפ, ולבסוף מדפיסים.",
+          explainWrong: "אי אפשר לחשב tip לפני שקלטנו bill ו-percent"
+        }
+      ]
     }
   },
 
@@ -896,9 +1014,9 @@ print("סה\"כ לתשלום:", int(total))
     id: "grade_average",
     group: "projects_y1",
     topic: "חישובים",
-    title: "מחשבון ציונים",
+    title: "📊 מחשבון ציונים",
     subtitle: "ממוצע + תנאי עמידה",
-    explain: "מחשבון ציונים קולט ציונים ממספר מקצועות ומחשב ממוצע. אם הממוצע ≥ 60 — עבר, אחרת — נכשל. שימו לב לסדר הפעולות בנוסחת הממוצע!",
+    explain: "המורה שלכם מלמד 30 תלמידים ואין לו זמן לחשב ממוצע לכל אחד. הוא ביקש מכם תוכנית שתקלוט 3 ציונים, תחשב ממוצע, ותגיד אם התלמיד עבר (≥60) או נכשל. שימו לב לסדר הפעולות בנוסחת הממוצע!",
     task: "קלטו 3 ציונים (int), חשבו ממוצע, והדפיסו 'עבר' אם הממוצע ≥ 60, אחרת 'נכשל'.",
     hint: "avg = (g1 + g2 + g3) / 3\nאחר כך if avg >= 60:",
     starter: `g1 = int(input("ציון 1: "))
@@ -969,9 +1087,9 @@ else:
     id: "temp_converter",
     group: "projects_y1",
     topic: "נוסחאות",
-    title: "ממיר טמפרטורה",
+    title: "🌡️ ממיר טמפרטורה",
     subtitle: "צלזיוס → פרנהייט",
-    explain: "הנוסחה להמרה מצלזיוס לפרנהייט: F = C × 9/5 + 32. נקודת קפיאה: 0°C = 32°F. נקודת רתיחה: 100°C = 212°F.",
+    explain: "חבר שלכם גר בניו-יורק ושולח כל בוקר את הטמפרטורה — אבל בפרנהייט! אתם רגילים לצלזיוס ולא מבינים כלום. בנו תוכנית שתמיר: F = C × 9/5 + 32. נקודת קפיאה: 0°C = 32°F. רתיחה: 100°C = 212°F.",
     task: "קלטו טמפרטורה בצלזיוס (float) והדפיסו את הערך המתאים בפרנהייט.",
     hint: "f = c * 9 / 5 + 32",
     starter: `c = float(input("טמפרטורה בצלזיוס: "))
@@ -1034,9 +1152,9 @@ print(f)`,
     id: "discount_calculator",
     group: "projects_y1",
     topic: "אחוזים",
-    title: "מחשבון הנחה",
+    title: "🛍️ מחשבון הנחה",
     subtitle: "חישוב מחיר אחרי הנחה",
-    explain: "כשיש הנחה מחשבים: כמה חוסכים = מחיר × אחוז ÷ 100. מחיר סופי = מחיר מקורי − חיסכון. פשוט ומועיל!",
+    explain: "ראיתם נעליים מגניבות ב-350 ש\"ח ויש שלט: \"הנחה 30%\"! כמה תחסכו? כמה תשלמו בסוף? בנו תוכנית שתחשב: saved = price × discount ÷ 100, final = price − saved.",
     task: "קלטו מחיר מקורי ואחוז הנחה (float), חשבו את הסכום שחוסכים ואת המחיר הסופי, והדפיסו שניהם.",
     hint: "saved = price * discount / 100\nfinal = price - saved",
     starter: `price = float(input("מחיר מקורי: "))
