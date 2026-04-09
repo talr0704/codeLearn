@@ -1342,7 +1342,129 @@ while True:
       }
     ]
   }
-}
+},
+
+  /* ======================
+     שאלות לדוגמה לסוגים החדשים
+     ====================== */
+
+  {
+    id: "demo_predict_output",
+    group: "basics",
+    topic: "ביטויים",
+    mode: "practiceOnly",
+    title: "מה יודפס?",
+    subtitle: "חזו את פלט הקוד",
+    explain: "כדי להבין קוד טוב, אפשר לדמות אותו בראש — לעקוב שורה אחרי שורה ולחשוב מה כל שורה עושה.",
+    task: "קראו את הקוד ובחרו מה יודפס כשמריצים אותו.",
+    hint: "חשבו: מה ערך x? מה ערך y? מה מדפיסים?",
+    fallback: {
+      type: "predictOutput",
+      question: "מה יודפס כשמריצים את הקוד?",
+      code: "x = 4\ny = x * 3\nprint(y - 2)",
+      options: ["4", "10", "12", "14"],
+      correctIndex: 1,
+      explainCorrect: "x=4, לכן y=4×3=12, ו-y-2=10",
+      explainWrong: "עקבו שורה אחר שורה: x=4, y=12, y-2=10"
+    }
+  },
+
+  {
+    id: "demo_debug",
+    group: "basics",
+    topic: "debugging",
+    mode: "practiceOnly",
+    title: "מצאו את הבאג",
+    subtitle: "תקנו שגיאה בקוד",
+    explain: "בדיקת קוד (Debugging) היא מיומנות חיונית. גם מתכנתים מנוסים עושים טעויות קטנות — המטרה היא למצוא ולתקן אותן.",
+    task: "הקוד אמור לחשב ולהדפיס את הסכום של 5 ו-3, אך יש בו שגיאה. מצאו ותקנו אותה.",
+    hint: "בפייתון כל הפקודות כתובות באותיות קטנות.",
+    fallback: {
+      type: "debug",
+      question: "הקוד אמור להדפיס 8 — תקנו את הבאג:",
+      starterCode: "a = 5\nb = 3\nPrint(a + b)",
+      solution: "a = 5\nb = 3\nprint(a + b)",
+      explainCorrect: "בפייתון print חייב להיות באותיות קטנות. Python היא case-sensitive!",
+      explainWrong: "שימו לב: Print ≠ print — פייתון רגיש לאותיות גדולות/קטנות"
+    }
+  },
+
+  {
+    id: "demo_match",
+    group: "basics",
+    topic: "מושגים",
+    mode: "practiceOnly",
+    title: "חברו פקודות לתפקידן",
+    subtitle: "match — התאמת מושגים",
+    explain: "כל שפת תכנות מגיעה עם פקודות יסוד. בפייתון יש כמה פקודות שתשתמשו בהן כל הזמן.",
+    task: "חברו כל פקודה לתיאור שלה.",
+    hint: "print מדפיסה, input קוראת, len מחזירה אורך, range יוצרת רצף.",
+    fallback: {
+      type: "match",
+      question: "חברו כל פקודה לתפקידה:",
+      lefts:  ["print()", "input()", "len()", "range()"],
+      rights: ["מדפיסה ערך למסך", "קוראת קלט מהמשתמש", "מחזירה מספר איברים", "יוצרת רצף מספרים", "ממירה לרשימה"],
+      correctPairs: {
+        "print()":  "מדפיסה ערך למסך",
+        "input()":  "קוראת קלט מהמשתמש",
+        "len()":    "מחזירה מספר איברים",
+        "range()":  "יוצרת רצף מספרים"
+      },
+      explainCorrect: "כל אחת מהפקודות האלה היא בסיסית ומשמשת כל הזמן!",
+      explainWrong: "נסו שוב — חשבו מה כל פקודה עושה בפועל"
+    }
+  },
+
+  {
+    id: "demo_indent",
+    group: "basics",
+    topic: "תנאים",
+    mode: "practiceOnly",
+    title: "תקנו הזחה",
+    subtitle: "if / else — הזחה נכונה",
+    explain: "בפייתון ההזחה (Indentation) היא חלק מהקוד! שורות שנמצאות בתוך if או else חייבות להיות מוזזות פנימה ב-4 רווחים (הזחה 1).",
+    task: "קבעו את רמת ההזחה הנכונה לכל שורה בקוד. השתמשו בחצים ◀ ▶ .",
+    hint: "if ו-else עצמם מתחילים בהזחה 0. הקוד שבתוכם — הזחה 1.",
+    fallback: {
+      type: "indent",
+      question: "קבעו הזחה נכונה לכל שורה:",
+      lines: [
+        "age = 16",
+        "if age >= 18:",
+        "print('מבוגר')",
+        "else:",
+        "print('קטין')"
+      ],
+      solution: [0, 0, 1, 0, 1],
+      maxIndent: 2,
+      explainCorrect: "if ו-else בהזחה 0. הקוד שבתוכם בהזחה 1.",
+      explainWrong: "רק השורות שבתוך if ו-else מקבלות הזחה פנימה"
+    }
+  },
+
+  {
+    id: "demo_drag_into_code",
+    group: "basics",
+    topic: "לולאות",
+    mode: "practiceOnly",
+    title: "השלימו את הלולאה",
+    subtitle: "for + range — גרור והשלם",
+    explain: "לולאת for בפייתון חוזרת על קוד מספר פעמים. בשילוב עם range(n) היא תרוץ בדיוק n פעמים ותספור מ-0 עד n-1.",
+    task: "גרור/י (או לחץ/י) את המילים הנכונות כדי להשלים לולאה שמדפיסה מספרים 0 עד 4.",
+    hint: "הלולאה צריכה: שם משתנה (i), ופונקציה שיוצרת רצף (range) עם הערך 5.",
+    fallback: {
+      type: "dragIntoCode",
+      question: "גרור/י את המילים להשלמת הלולאה:",
+      promptParts: ["for ", " in range(", "):"],
+      blanks: [
+        { correct: "i" },
+        { correct: "5" }
+      ],
+      bank: ["i", "5", "x", "10", "range", "while"],
+      explainCorrect: "for i in range(5) מריצה את הלולאה 5 פעמים, עם i = 0,1,2,3,4",
+      explainWrong: "המשתנה הנפוץ הוא i, ו-range(5) יוצר בדיוק 5 ערכים"
+    }
+  }
 
 ];
 
