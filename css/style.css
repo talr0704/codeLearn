@@ -1,19 +1,19 @@
 :root{
   /* ===== Base ===== */
-  --bg1:#070A1A;
-  --bg2:#0B1026;
+  --bg1:#111827;
+  --bg2:#1a2235;
 
-  --text:#EAF2FF;
-  --muted: rgba(234,242,255,0.74);
+  --text:#F1F7FF;
+  --muted: rgba(220,235,255,0.82);
 
   /* Glass surface */
-  --glassA: rgba(255,255,255,0.10);
-  --glassB: rgba(255,255,255,0.05);
-  --line:  rgba(255,255,255,0.12);
+  --glassA: rgba(255,255,255,0.13);
+  --glassB: rgba(255,255,255,0.07);
+  --line:  rgba(255,255,255,0.16);
 
   /* Depth */
-  --shadow: 0 24px 70px rgba(0,0,0,.45);
-  --shadowIn: inset 0 1px 0 rgba(255,255,255,.08);
+  --shadow: 0 20px 60px rgba(0,0,0,.38);
+  --shadowIn: inset 0 1px 0 rgba(255,255,255,.12);
 
   --r-xl: 24px;
   --r-lg: 18px;
@@ -52,13 +52,13 @@
 
 body{
   margin:0;
-  font-family: system-ui, "Rubik", Arial;
+  font-family: "Rubik", system-ui, Arial;
   color: var(--text);
 
   background:
-    radial-gradient(900px 520px at 15% 10%, rgba(96,165,250,.20), transparent 60%),
-    radial-gradient(900px 520px at 85% 20%, rgba(167,139,250,.16), transparent 60%),
-    radial-gradient(900px 520px at 40% 105%, rgba(34,197,94,.12), transparent 60%),
+    radial-gradient(900px 600px at 15% 10%, rgba(96,165,250,.26), transparent 60%),
+    radial-gradient(900px 600px at 85% 20%, rgba(167,139,250,.20), transparent 60%),
+    radial-gradient(900px 600px at 40% 105%, rgba(34,197,94,.15), transparent 60%),
     linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg1) 100%);
 }
 
@@ -174,9 +174,9 @@ body[data-group] #catSub{
 .tile{
   position: relative; /* ✅ needed for ::before/::after */
   background: linear-gradient(180deg, var(--glassA), var(--glassB));
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
   box-shadow: var(--shadow), var(--shadowIn);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(18px);
   overflow:hidden;
 }
 
@@ -201,15 +201,15 @@ body[data-group] #catSub{
 
 .card > *{ position: relative; z-index: 1; }
 
-/* Optional section accents (very subtle, no big borders) */
-.card--explain{ box-shadow: var(--shadow), var(--shadowIn), 0 0 0 1px rgba(96,165,250,0.06); }
-.card--task{    box-shadow: var(--shadow), var(--shadowIn), 0 0 0 1px rgba(245,158,11,0.06); }
-.card--practice{box-shadow: var(--shadow), var(--shadowIn), 0 0 0 1px rgba(34,197,94,0.06); }
-.card--code{    box-shadow: var(--shadow), var(--shadowIn), 0 0 0 1px rgba(167,139,250,0.06); }
+/* Section accent borders — more visible */
+.card--explain{ border-color: rgba(96,165,250,0.28);  box-shadow: var(--shadow), var(--shadowIn), 0 0 0 1px rgba(96,165,250,0.10); }
+.card--task{    border-color: rgba(245,158,11,0.28);  box-shadow: var(--shadow), var(--shadowIn), 0 0 0 1px rgba(245,158,11,0.10); }
+.card--practice{border-color: rgba(34,197,94,0.28);   box-shadow: var(--shadow), var(--shadowIn), 0 0 0 1px rgba(34,197,94,0.10); }
+.card--code{    border-color: rgba(167,139,250,0.28); box-shadow: var(--shadow), var(--shadowIn), 0 0 0 1px rgba(167,139,250,0.10); }
 
 /* ===== Text ===== */
-.text{ color: var(--muted); line-height:1.75; font-size:15px; }
-.mini{ color: var(--muted); font-size:13px; }
+.text{ color: var(--muted); line-height:1.8; font-size:15.5px; }
+.mini{ color: var(--muted); font-size:13.5px; }
 
 .row{
   display:flex;
