@@ -97,13 +97,13 @@ function _makeCustomSelect(options, placeholder, ariaLabel) {
     item.setAttribute("role", "option");
     item.textContent = opt;
     item.style.cssText = "padding:10px 16px; cursor:pointer; font-size:14px; color:var(--text,#1E293B); direction:rtl; text-align:right; transition:background .1s;";
-    item.addEventListener("mouseenter", () => { item.style.background = "var(--primaryBg,#FFFBEB)"; });
-    item.addEventListener("mouseleave", () => { item.style.background = selectedValue === opt ? "var(--primaryBg,#FFFBEB)" : ""; });
+    item.addEventListener("mouseenter", () => { item.style.background = "var(--tealBg,#EAFAFA)"; });
+    item.addEventListener("mouseleave", () => { item.style.background = selectedValue === opt ? "var(--tealBg,#EAFAFA)" : ""; });
     item.addEventListener("mousedown", e => e.preventDefault());
     item.addEventListener("click", () => {
       dropdown.querySelectorAll("[role='option']").forEach(o => o.style.background = "");
       selectedValue = opt;
-      item.style.background = "var(--primaryBg,#FFFBEB)";
+      item.style.background = "var(--tealBg,#EAFAFA)";
       btnText.textContent = opt;
       btnText.style.color = "var(--text,#1E293B)";
       close();
