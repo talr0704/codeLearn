@@ -73,7 +73,8 @@ function _makeCustomSelect(options, placeholder, ariaLabel) {
     "border-radius:14px",
     "box-shadow:0 8px 32px rgba(30,41,59,.14)",
     "z-index:300",
-    "overflow:hidden",
+    "overflow-y:auto",
+    "max-height:220px",
     "display:none",
     "padding:4px 0",
   ].join(";");
@@ -575,12 +576,11 @@ function renderMatch(fb, root) {
 
   fb.lefts.forEach(left => {
     const row = document.createElement("div");
-    row.className = "orderItem";
-    row.style.cursor = "default";
+    row.className = "orderItem matchRow";
+    row.style.cssText = "cursor:default; gap:14px; align-items:center;";
 
-    const leftEl = document.createElement("div");
-    leftEl.className = "orderCode";
-    leftEl.style.flex = "1";
+    const leftEl = document.createElement("code");
+    leftEl.style.cssText = "font-size:14px; font-weight:700; padding:5px 12px; flex-shrink:0; white-space:nowrap;";
     leftEl.textContent = left;
 
     const { el, getValue } = _makeCustomSelect(

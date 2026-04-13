@@ -432,6 +432,13 @@ code {
   font-family: ui-monospace, Menlo, Consolas, monospace;
 }
 
+/* Match rows: disable drag hover effects */
+.orderItem.matchRow:hover {
+  transform: none;
+  border-color: var(--border);
+  box-shadow: var(--shadow);
+}
+
 .orderItem.dragOver {
   outline: 2px dashed var(--teal);
   outline-offset: 2px;
