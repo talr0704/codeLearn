@@ -53,7 +53,7 @@ function _makeCustomSelect(options, placeholder, ariaLabel) {
 
   const btnText = document.createElement("span");
   btnText.textContent = placeholder;
-  btnText.style.color = "rgba(234,242,255,.38)";
+  btnText.style.color = "var(--muted)";
 
   const arrow = document.createElement("span");
   arrow.textContent = "▾";
@@ -68,11 +68,10 @@ function _makeCustomSelect(options, placeholder, ariaLabel) {
     "top:calc(100% + 6px)",
     "right:0",
     "min-width:100%",
-    "background:linear-gradient(180deg,rgba(11,16,38,.98),rgba(7,10,26,.99))",
-    "border:1px solid rgba(255,255,255,.14)",
-    "border-radius:16px",
-    "box-shadow:0 28px 72px rgba(0,0,0,.70),inset 0 1px 0 rgba(255,255,255,.07)",
-    "backdrop-filter:blur(18px)",
+    "background:var(--surface,#fff)",
+    "border:1.5px solid var(--border,#DDE4EF)",
+    "border-radius:14px",
+    "box-shadow:0 8px 32px rgba(30,41,59,.14)",
     "z-index:300",
     "overflow:hidden",
     "display:none",
@@ -97,16 +96,16 @@ function _makeCustomSelect(options, placeholder, ariaLabel) {
     const item = document.createElement("div");
     item.setAttribute("role", "option");
     item.textContent = opt;
-    item.style.cssText = "padding:10px 16px; cursor:pointer; font-size:14px; color:rgba(234,242,255,.85); direction:rtl; text-align:right; transition:background .1s;";
-    item.addEventListener("mouseenter", () => { item.style.background = "rgba(96,165,250,.18)"; });
-    item.addEventListener("mouseleave", () => { item.style.background = selectedValue === opt ? "rgba(96,165,250,.10)" : ""; });
+    item.style.cssText = "padding:10px 16px; cursor:pointer; font-size:14px; color:var(--text,#1E293B); direction:rtl; text-align:right; transition:background .1s;";
+    item.addEventListener("mouseenter", () => { item.style.background = "var(--accentBg,rgba(37,99,235,.07))"; });
+    item.addEventListener("mouseleave", () => { item.style.background = selectedValue === opt ? "var(--accentBg,rgba(37,99,235,.07))" : ""; });
     item.addEventListener("mousedown", e => e.preventDefault());
     item.addEventListener("click", () => {
       dropdown.querySelectorAll("[role='option']").forEach(o => o.style.background = "");
       selectedValue = opt;
-      item.style.background = "rgba(96,165,250,.10)";
+      item.style.background = "var(--accentBg,rgba(37,99,235,.07))";
       btnText.textContent = opt;
-      btnText.style.color = "var(--text)";
+      btnText.style.color = "var(--text,#1E293B)";
       close();
     });
     dropdown.appendChild(item);
