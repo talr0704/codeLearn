@@ -101,16 +101,16 @@ h1 {
   color: #FFFFFF;
 }
 
-/* Home page: white title with soft yellow glow */
+/* Home page hero */
 body.home .top { padding: 72px 24px 64px; }
 body.home .top h1 {
   color: #FFFFFF;
-  text-shadow: 0 0 28px rgba(255,214,0,.55), 0 0 8px rgba(255,214,0,.30);
+  -webkit-text-stroke: 1px rgba(0,0,0,.10);
 }
 body.home .top .sub {
   text-align: right;
-  max-width: 720px;
-  margin: 14px auto 0;
+  max-width: none;
+  margin: 14px 0 0;
   font-size: 17px;
   font-weight: 500;
   line-height: 1.85;
