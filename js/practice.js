@@ -72,7 +72,7 @@ if (!ch) {
 
   const topicBadge = document.getElementById("topicBadge");
   const progressBadge = document.getElementById("progressBadge");
-  topicBadge.textContent = `# ${ch.topic ?? ""}`;
+  topicBadge.textContent = ch.topic ?? "";
   const idx = CHALLENGES.findIndex(x => x.id === ch.id);
   progressBadge.textContent = `אתגר ${idx + 1} מתוך ${CHALLENGES.length}`;
 

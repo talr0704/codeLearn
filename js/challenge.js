@@ -113,7 +113,7 @@ function main() {
   if (hint) hint.textContent = ch.hint ?? "";
   if (solution) solution.textContent = ch.solution ?? "";
 
-  if (topicBadge) topicBadge.textContent = `# ${ch.topic ?? ""}`;
+  if (topicBadge) topicBadge.textContent = ch.topic ?? "";
   const idx = CHALLENGES.findIndex(x => x.id === ch.id);
   if (progressBadge) progressBadge.textContent = `אתגר ${idx + 1} מתוך ${CHALLENGES.length}`;
 
