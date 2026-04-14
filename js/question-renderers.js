@@ -126,17 +126,21 @@ function _makeCustomSelect(options, placeholder, ariaLabel) {
   return { el: wrapper, getValue: () => selectedValue };
 }
 
+/* ---- private: clear feedback from root and dedicated feedback area ---- */
+function _clearFeedback(root) {
+  root.querySelectorAll(".status, .mini.answer").forEach(el => el.remove());
+  const ded = document.getElementById("practiceAreaFeedback");
+  if (ded) ded.innerHTML = "";
+}
+
 /* ---- public: feedback helper ---- */
 
 /**
- * Appends (and replaces) a feedback row inside `root`.
- * @param {Element} root
- * @param {boolean} ok
- * @param {string}  explainCorrect  – shown when correct
- * @param {string}  explainWrong    – shown when wrong
+ * Writes feedback into the dedicated #practiceAreaFeedback div when
+ * present (prevents the הבא button from jumping), otherwise appends to root.
  */
 function showFeedback(root, ok, explainCorrect, explainWrong) {
-  root.querySelectorAll(".status, .mini.answer").forEach(el => el.remove());
+  _clearFeedback(root);
 
   const msg = document.createElement("div");
   msg.className = ok ? "status good" : "status bad";
@@ -148,8 +152,9 @@ function showFeedback(root, ok, explainCorrect, explainWrong) {
   exp.className = "mini answer";
   exp.textContent = ok ? (explainCorrect ?? "") : (explainWrong ?? "");
 
-  root.appendChild(msg);
-  root.appendChild(exp);
+  const target = document.getElementById("practiceAreaFeedback") ?? root;
+  target.appendChild(msg);
+  target.appendChild(exp);
 }
 
 /* ---- public: entry point ---- */
@@ -424,7 +429,7 @@ function renderFill(fb, root) {
   resetBtn.onclick = () => {
     blanks.forEach(b => b.value = "");
     renderSentence();
-    root.querySelectorAll(".status, .mini.answer").forEach(el => el.remove());
+    _clearFeedback(root);
   };
 
   actions.appendChild(checkBtn);
@@ -535,7 +540,7 @@ function renderDebug(fb, root) {
 
   resetBtn.onclick = () => {
     textarea.value = fb.starterCode ?? "";
-    root.querySelectorAll(".status, .mini.answer").forEach(el => el.remove());
+    _clearFeedback(root);
   };
 
   actions.appendChild(checkBtn);
@@ -870,7 +875,7 @@ function renderDragIntoCode(fb, root) {
   resetBtn.onclick = () => {
     blanks.forEach(b => b.value = "");
     renderCode();
-    root.querySelectorAll(".status, .mini.answer").forEach(el => el.remove());
+    _clearFeedback(root);
   };
 
   actions.appendChild(checkBtn);
