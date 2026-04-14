@@ -101,8 +101,12 @@ h1 {
   color: #FFFFFF;
 }
 
-/* Home page: yellow title on teal (like reference design) */
-body.home .top h1 { color: var(--yellow); }
+/* Home page: white title with soft yellow glow */
+body.home .top { padding: 72px 24px 64px; }
+body.home .top h1 {
+  color: #FFFFFF;
+  text-shadow: 0 0 28px rgba(255,214,0,.55), 0 0 8px rgba(255,214,0,.30);
+}
 
 /* Challenge/category page: white title */
 body[data-group] .top h1  { color: #FFFFFF; }
@@ -113,10 +117,11 @@ h2 { font-size: 16px; font-weight: 600; }
 h3 { font-size: 14.5px; font-weight: 500; }
 
 .sub {
-  color: rgba(255,255,255,.82);
-  margin: 4px 0 0;
-  font-size: 14.5px;
-  line-height: 1.65;
+  color: rgba(255,255,255,.92);
+  margin: 10px 0 0;
+  font-size: 16.5px;
+  font-weight: 500;
+  line-height: 1.75;
 }
 
 /* ===== Layout ===== */
