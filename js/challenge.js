@@ -261,6 +261,8 @@ function main() {
     const step = steps[__stepIndex];
 
     area.innerHTML = "";
+    const ded = document.getElementById("practiceAreaFeedback");
+    if (ded) ded.innerHTML = "";
 
     const header = document.createElement("div");
     header.className = "row";

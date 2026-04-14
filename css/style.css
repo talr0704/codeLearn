@@ -153,16 +153,19 @@ h3 { font-size: 14.5px; font-weight: 500; }
 /* Section h2 — flat section header with bottom divider, not interactive */
 .card h2 {
   display: block;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--muted);
-  letter-spacing: .15px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: .1px;
   margin: 0 0 16px;
   padding-bottom: 10px;
   border-bottom: 1.5px solid var(--border);
   cursor: default;
   user-select: none;
 }
+
+/* When h2 follows a badge row, add breathing room */
+.card .row + h2 { margin-top: 14px; }
 
 /* Colored top accent strip per section type (replaces side borders) */
 .card--explain  { border-top: 3px solid var(--teal); }
@@ -182,18 +185,23 @@ h3 { font-size: 14.5px; font-weight: 500; }
   margin-top: 12px;
 }
 
-/* ===== Badges ===== */
+/* ===== Badges — flat metadata chip, not clickable ===== */
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
-  border-radius: 999px;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 6px;
   background: var(--tealBg);
-  border: 1.5px solid var(--tealBorder);
   color: var(--tealDarker);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 12px;
+}
+
+/* ===== Feedback area — pre-reserves space so הבא button doesn't jump ===== */
+.feedbackArea {
+  min-height: 58px;
+  margin-top: 10px;
 }
 
 /* ===== Buttons ===== */
