@@ -107,6 +107,14 @@ body.home .top h1 {
   color: #FFFFFF;
   text-shadow: 0 0 28px rgba(255,214,0,.55), 0 0 8px rgba(255,214,0,.30);
 }
+body.home .top .sub {
+  text-align: right;
+  max-width: 720px;
+  margin: 14px auto 0;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.85;
+}
 
 /* Challenge/category page: white title */
 body[data-group] .top h1  { color: #FFFFFF; }
