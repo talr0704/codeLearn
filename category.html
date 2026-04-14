@@ -11,7 +11,7 @@
 </head>
 <body>
   <header class="top">
-    <a class="link" href="./index.html" onclick="if(history.length>1){history.back();return false}">← חזרה</a>
+    <a class="link topBack" href="./index.html" onclick="if(history.length>1){history.back();return false}">← חזרה</a>
     <h1 id="catTitle">בחירת תרגיל</h1>
     <p id="catSub" class="sub"></p>
   </header>
@@ -19,6 +19,7 @@
   <main class="container">
     <section class="card">
       <h2>בחרו תרגיל</h2>
+      <p class="mini" style="margin: 0 0 18px;">בחרו משימה מתוך הרשימה כדי להתחיל לתרגל</p>
       <div id="list" class="grid"></div>
     </section>
   </main>

@@ -23,7 +23,7 @@ function makeTile(ch, groupFromPage) {
   a.href = `./${page}?id=${encodeURIComponent(ch.id)}${groupPart}`;
 
   a.innerHTML = `
-    <div class="tag"># ${ch.topic ?? ""}</div>
+    <div class="tag">${ch.topic ?? ""}</div>
     <div class="name">${ch.title ?? ""}</div>
     <div class="desc">${ch.subtitle ?? ""}</div>
   `;
