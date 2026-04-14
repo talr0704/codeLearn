@@ -105,15 +105,15 @@ h1 {
 body.home .top { padding: 72px 24px 64px; }
 body.home .top h1 {
   color: #FFFFFF;
-  -webkit-text-stroke: 1px rgba(0,0,0,.10);
+  -webkit-text-stroke: 1.5px rgba(180,220,218,.55);
 }
 body.home .top .sub {
-  text-align: right;
+  text-align: center;
   max-width: none;
-  margin: 14px 0 0;
+  margin: 16px 0 0;
   font-size: 17px;
   font-weight: 500;
-  line-height: 1.85;
+  line-height: 1.9;
 }
 
 /* Challenge/category page: white title */
