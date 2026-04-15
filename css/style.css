@@ -167,8 +167,9 @@ h3 { font-size: 14.5px; font-weight: 500; }
   user-select: none;
 }
 
-/* When h2 follows a badge row, add breathing room */
-.card .row + h2 { margin-top: 16px; }
+/* When h2 follows a badge row */
+.card .row:first-child { margin-top: 0; }
+.card .row + h2 { margin-top: 10px; }
 
 /* Colored top accent strip per section type (replaces side borders) */
 .card--explain  { border-top: 3px solid var(--teal); }
