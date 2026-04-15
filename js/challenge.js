@@ -103,7 +103,6 @@ function main() {
   const status = document.getElementById("status");
   const codeCard = document.getElementById("codeCard");
 
-  const topicBadge = document.getElementById("topicBadge");
   const progressBadge = document.getElementById("progressBadge");
 
   if (title) title.textContent = ch.title ?? "";
@@ -112,8 +111,6 @@ function main() {
   if (task) task.textContent = ch.task ?? "";
   if (hint) hint.textContent = ch.hint ?? "";
   if (solution) solution.textContent = ch.solution ?? "";
-
-  if (topicBadge) topicBadge.textContent = ch.topic ?? "";
   const idx = CHALLENGES.findIndex(x => x.id === ch.id);
   if (progressBadge) progressBadge.textContent = `אתגר ${idx + 1} מתוך ${CHALLENGES.length}`;
 

@@ -70,9 +70,7 @@ if (!ch) {
   hintEl.textContent = ch.hint ?? "";
   // document.getElementById("hintBtn").onclick = () => hintEl.classList.toggle("hidden");
 
-  const topicBadge = document.getElementById("topicBadge");
   const progressBadge = document.getElementById("progressBadge");
-  topicBadge.textContent = ch.topic ?? "";
   const idx = CHALLENGES.findIndex(x => x.id === ch.id);
   progressBadge.textContent = `אתגר ${idx + 1} מתוך ${CHALLENGES.length}`;
 
